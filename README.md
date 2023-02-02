@@ -18,7 +18,6 @@ Setup IPsec IKEv1 with PSK and Xauth in openwrt 22.03
 - [Client Configuration](#client-configuration)
   - [Android](#android)
   - [iOS](#ios)
-- [See Also](#see-also)
 
 # Overview
 
@@ -31,13 +30,16 @@ Prerequisites:
 - 192.168.1.1 - router internal ip
 
 # Installation
-```
+```bash
 ## update package list
-root@OpenWrt:~# opkg update
+opkg update
+
 # install minimal set strongswan
-root@OpenWrt:~# opkg install strongswan-minimal strongswan-mod-xauth-generic
+opkg install strongswan-minimal strongswan-mod-xauth-generic
+
 # remove unused dependencies
-root@OpenWrt:~# opkg remove strongswan-minimal strongswan-mod-updown iptables-zz-legacy iptables-mod-ipsec
+opkg remove strongswan-minimal strongswan-mod-updown \
+        iptables-zz-legacy iptables-mod-ipsec
 ```
 
 # Configure StrongSwan
@@ -79,8 +81,8 @@ user2 : XAUTH "Ea3a1sDsA"
 ```
 
 ## Restart ipsec
-```
-root@OpenWrt:~# /etc/init.d/ipsec restart
+```bash
+/etc/init.d/ipsec restart
 ```
 
 # Configure Netfilter
@@ -133,8 +135,8 @@ config include
 ```
 
 ## Restart firewall
-```
-root@OpenWrt:~# /etc/init.d/firewall restart
+```bash
+/etc/init.d/firewall restart
 ```
 
 # Configure DNS Resolver
@@ -146,12 +148,12 @@ listen-address=90.190.8.10,192.168.1.1,127.0.0.1
 ```
 
 # Troubleshooting
-```
-root@OpenWrt:~# ipsec stop
-root@OpenWrt:~# ipsec start --nofork
-root@OpenWrt:~# ipsec status
-root@OpenWrt:~# ipsec statusall
-root@OpenWrt:~# logread && logread -f
+```bash
+ipsec stop
+ipsec start --nofork
+ipsec status
+ipsec statusall
+logread && logread -f
 ```
 
 # Client Configuration
@@ -159,6 +161,3 @@ root@OpenWrt:~# logread && logread -f
 Open `Settings / Wireless & networks / VPN`, tap the "+" sign in the upper-right corner of the Settings screen. On the `Edit VPN profile` dialog that pops up, enter the profile Name, select `IPSec Xauth PSK` in the `Type` drop-down menu, and then enter `Server address` and `IPSec pre-shared key`. Tap `SAVE`.
 ## iOS
 Open `Settings / VPN`, tap `Add VPN Configuration...`. On the dialog that pops up, choose `IPSec` in the `Type` drop-down menu, and then tap `Back`. Enter all the necessary information: profile name in `Descrption`, server address in `Server`, username in `Account`, account password in `Password` and finally the PSK in `Secret`. Tap `Done`.
-
-# See Also
-1. https://oldwiki.archive.openwrt.org/doc/howto/vpn.ipsec.roadwarrior
