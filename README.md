@@ -153,7 +153,10 @@ ipsec stop
 ipsec start --nofork
 ipsec status
 ipsec statusall
+nft list ruleset
 logread && logread -f
+ip rule show
+ip route show table 220
 ```
 
 # Client Configuration
