@@ -89,7 +89,7 @@ user2 : XAUTH "Ea3a1sDsA"
 
 ## Create /etc/fwuser.nft
 ```
-meta ipsec exists ip saddr 192.168.2.0/29 counter accept comment "custom: allow traffic for vpn"
+meta ipsec exists ip saddr 192.168.2.0/29 counter accept
 ```
 
 ## Add to /etc/config/firewall
